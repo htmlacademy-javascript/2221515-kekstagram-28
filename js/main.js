@@ -94,3 +94,5 @@ const createPhoto = () => ({
 
 const photosArray = () => Array.from({length:PHOTOS_AMOUNT}, createPhoto);
 
+photosArray();
+
