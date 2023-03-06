@@ -1,14 +1,14 @@
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
+const getRandomInteger = (minValue, maxValue) => {
+  const lower = Math.ceil(Math.min(minValue, maxValue));
+  const upper = Math.floor(Math.max(minValue, maxValue));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
 
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+const getRandomElementFromArray = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-const createIdGenerator = (start) => {
-  let lastGeneratedId = start;
+const createIdGenerator = () => {
+  let lastGeneratedId = 0;
 
   return () => {
     lastGeneratedId += 1;
@@ -16,8 +16,8 @@ const createIdGenerator = (start) => {
   };
 };
 
-const generatePhotoId = createIdGenerator(0);
-const generateCommentId = createIdGenerator(25);
+const generatePhotoId = createIdGenerator();
+const generateCommentId = createIdGenerator();
 
 const PHOTOS_AMOUNT = 25;
 const LIKES_AMOUNT_MIN = 15;
@@ -77,22 +77,45 @@ const PHOTO_DESCRIPTIONS = [
   'Крупным планом глаза человека, отражающие солнечный свет.',
 ];
 
-const createComment = () => ({
+const createComment = (obj) => ({
   id: generateCommentId(),
-  avatar: `img/avatar-${getRandomInteger(AVATAR_NUMBER_MIN, AVATAR_NUMBER_MAX)}.svg`,
-  messages: getRandomArrayElement(COMMENTS),
-  names: getRandomArrayElement(NAMES),
+  avatar: `img/avatar-${getRandomInteger(obj.avatarNumberMin, obj.avatarNumberMax)}.svg`,
+  messages: getRandomElementFromArray(obj.comments),
+  name: getRandomElementFromArray(obj.names),
 });
 
-const createPhoto = () => ({
-  id: generatePhotoId(),
-  url: `photos/${generatePhotoId()}`,
-  description: getRandomArrayElement(PHOTO_DESCRIPTIONS),
-  likes: getRandomInteger(LIKES_AMOUNT_MIN, LIKES_AMOUNT_MAX),
-  comments: Array.from({ length: PHOTOS_AMOUNT }, createComment),
+const createPhoto = (obj) => {
+  const emptyArray = new Array(obj.photosAmount);
+  const id = generatePhotoId();
+  const commentData = {
+    avatarNumberMin: obj.avatarNumberMin,
+    avatarNumberMax: obj.avatarNumberMax,
+    comments: obj.comments,
+    names: obj.names,
+  };
+
+  return {
+    id,
+    url: `photos/${id}`,
+    description: getRandomElementFromArray(obj.photoDescriptions),
+    likes: getRandomInteger(obj.likesAmountMin, obj.likesAmountMax),
+    comments: Array.from(emptyArray, () => createComment(commentData)),
+  };
+};
+
+const photosArray = (obj) => {
+  const emptyArray = new Array(obj.photosAmount);
+
+  return Array.from(emptyArray, () => createPhoto(obj));
+};
+
+photosArray({
+  photoDescriptions: PHOTO_DESCRIPTIONS,
+  likesAmountMin: LIKES_AMOUNT_MIN,
+  likesAmountMax: LIKES_AMOUNT_MAX,
+  avatarNumberMin: AVATAR_NUMBER_MIN,
+  avatarNumberMax: AVATAR_NUMBER_MAX,
+  comments: COMMENTS,
+  names: NAMES,
+  photosAmount: PHOTOS_AMOUNT,
 });
-
-const photosArray = () => Array.from({length:PHOTOS_AMOUNT}, createPhoto);
-
-photosArray();
-
