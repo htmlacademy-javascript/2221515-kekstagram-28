@@ -1,4 +1,4 @@
-const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const thumbnailTemplate = document.querySelector('#picture').content;
 const container = document.querySelector('.pictures');
 
 const createThumbnail = ({url, description, comments, likes, }) => {

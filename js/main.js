@@ -13,4 +13,4 @@ const photos = getPhotos({
   photosAmount: PHOTOS_AMOUNT,
 });
 
-renderThumbnails (photos);
+renderThumbnails(photos);
