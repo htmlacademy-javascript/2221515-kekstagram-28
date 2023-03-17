@@ -69,7 +69,7 @@ const createComment = (obj) => ({
 });
 
 const createPhoto = (obj) => {
-  const emptyArray = new Array(obj.photosAmount);
+  const emptyArray = new Array(getRandomInteger(1, 20));
   const id = generatePhotoId();
   const commentData = {
     avatarNumberMin: obj.avatarNumberMin,
@@ -80,21 +80,21 @@ const createPhoto = (obj) => {
 
   return {
     id,
-    url: `photos/${id}`,
+    url: `photos/${id}.jpg`,
     description: getRandomElementFromArray(obj.photoDescriptions),
     likes: getRandomInteger(obj.likesAmountMin, obj.likesAmountMax),
     comments: Array.from(emptyArray, () => createComment(commentData)),
   };
 };
 
-const photosArray = (obj) => {
+const getPhotos = (obj) => {
   const emptyArray = new Array(obj.photosAmount);
 
   return Array.from(emptyArray, () => createPhoto(obj));
 };
 
 export {
-  photosArray,
+  getPhotos,
   PHOTOS_AMOUNT,
   LIKES_AMOUNT_MIN,
   LIKES_AMOUNT_MAX,
