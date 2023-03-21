@@ -1,6 +1,6 @@
-import { AVATAR_NUMBER_MAX, AVATAR_NUMBER_MIN, COMMENTS, LIKES_AMOUNT_MAX, LIKES_AMOUNT_MIN, NAMES, getPhotos, PHOTOS_AMOUNT, PHOTO_DESCRIPTIONS } from './data.js';
-import { renderThumbnails } from './thumbnail.js';
+import { renderGallery } from './gallery.js';
 
+import { AVATAR_NUMBER_MAX, AVATAR_NUMBER_MIN, COMMENTS, LIKES_AMOUNT_MAX, LIKES_AMOUNT_MIN, NAMES, getPhotos, PHOTOS_AMOUNT, PHOTO_DESCRIPTIONS } from './data.js';
 
 const photos = getPhotos({
   photoDescriptions: PHOTO_DESCRIPTIONS,
@@ -13,4 +13,4 @@ const photos = getPhotos({
   photosAmount: PHOTOS_AMOUNT,
 });
 
-renderThumbnails(photos);
+renderGallery(photos);
