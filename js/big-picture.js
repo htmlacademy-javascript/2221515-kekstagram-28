@@ -35,7 +35,7 @@ const renderPictureDetails = ({ url, description, likes, comments }) => {
   bigPicture.querySelector('.comments-count').textContent = comments.length;
 };
 
-const createComment = ({ avatar, name, message } = {}) => {
+const createComment = ({ avatar, name, message }) => {
   const commentsClone = commentsContainer.querySelector('li').cloneNode(true);
   commentsClone.querySelector('.social__picture').src = avatar;
   commentsClone.querySelector('.social__picture').alt = name;
@@ -44,61 +44,58 @@ const createComment = ({ avatar, name, message } = {}) => {
   return commentsClone;
 };
 
-const createComments = (data) => {
+const renderComments = (comments = []) => {
   const commentFragment = document.createDocumentFragment();
-  data.forEach(({ avatar, name, message }) => {
+  comments.forEach(({ avatar, name, message }) => {
     const comment = createComment({ avatar, name, message });
     commentFragment.append(comment);
   });
 
   commentsContainer.innerHTML = '';
   commentsContainer.append(commentFragment);
-};
 
-const renderComments = (comments = []) => {
   const increaseCommentsShown = createNumberGeneratorPlusFive();
   let commentsShown = increaseCommentsShown();
   if (commentsShown >= comments.length) {
     commentsShown = comments.length;
     commentsLoader.classList.add('hidden');
-  } else {
-    commentCount.classList.remove('hidden');
-    commentsLoader.classList.remove('hidden');
 
-    const fragment = document.createDocumentFragment();
+    return;
+  }
+  commentCount.classList.remove('hidden');
+  commentsLoader.classList.remove('hidden');
+  const fragment = document.createDocumentFragment();
+  const assemblyFragment = () => {
     for (let i = 0; i < commentsShown; i++) {
       const commentElement = createComment(comments[i]);
       fragment.append(commentElement);
     }
+  };
+  assemblyFragment();
 
+  const commentsRefrash = function () {
     commentsContainer.innerHTML = '';
     commentsContainer.append(fragment);
     commentCount.innerHTML = `${commentsShown} из <span class ="comments-count">${comments.length}</span> комментариев`;
+  };
+  commentsRefrash();
 
-    const onLoaderClick = () => {
-      commentsShown = increaseCommentsShown();
-      if (commentsShown >= comments.length) {
-        commentsShown = comments.length;
-      }
-      for (let i = 0; i < commentsShown; i++) {
-        const commentElement = createComment(comments[i]);
-        fragment.append(commentElement);
-      }
-      if (commentsShown >= comments.length) {
-        commentsShown = comments.length;
-        commentsLoader.classList.add('hidden');
-        commentCount.classList.add('hidden');
-        commentsLoader.removeEventListener('click', onLoaderClick);
-      }
-
-      commentsContainer.innerHTML = '';
-      commentsContainer.append(fragment);
-      commentCount.innerHTML = `${commentsShown} из <span class ="comments-count">${comments.length}</span> комментариев`;
-    };
-    commentsLoader.addEventListener('click', onLoaderClick);
-  }
+  const onLoaderClick = () => {
+    commentsShown = increaseCommentsShown();
+    if (commentsShown >= comments.length) {
+      commentsShown = comments.length;
+    }
+    assemblyFragment();
+    if (commentsShown >= comments.length) {
+      commentsShown = comments.length;
+      commentsLoader.classList.add('hidden');
+      commentCount.classList.add('hidden');
+      commentsLoader.removeEventListener('click', onLoaderClick);
+    }
+    commentsRefrash();
+  };
+  commentsLoader.addEventListener('click', onLoaderClick);
 };
-
 
 const showBigPicture = (data) => {
   bigPicture.classList.remove('hidden');
@@ -108,7 +105,6 @@ const showBigPicture = (data) => {
   document.addEventListener('keydown', onEscapeKeydown);
 
   renderPictureDetails(data);
-  createComments(data.comments);
   renderComments(data.comments);
 };
 
