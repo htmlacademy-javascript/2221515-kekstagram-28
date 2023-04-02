@@ -12,11 +12,22 @@ const createIdGenerator = () => {
 
   return () => {
     lastGeneratedId += 1;
+
     return lastGeneratedId;
+  };
+};
+
+const createNumberGeneratorPlusFive = () => {
+  let commentsShown = 0;
+
+  return () => {
+    commentsShown += 5;
+
+    return commentsShown;
   };
 };
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 
-export { getRandomInteger, getRandomElementFromArray, createIdGenerator, isEscapeKey };
+export { getRandomInteger, getRandomElementFromArray, createIdGenerator, isEscapeKey, createNumberGeneratorPlusFive };

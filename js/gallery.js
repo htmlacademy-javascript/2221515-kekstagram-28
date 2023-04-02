@@ -14,7 +14,10 @@ const renderGallery = (pictures) => {
     const picture = pictures.find(
       (item) => item.id === Number(thumbnail.dataset.thumbnailId)
     );
-    showBigPicture(picture);
+
+    if (picture) {
+      showBigPicture(picture);
+    }
   });
 
   renderThumbnails(pictures);

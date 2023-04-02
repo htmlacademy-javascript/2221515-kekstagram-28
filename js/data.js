@@ -60,6 +60,7 @@ const PHOTO_DESCRIPTIONS = [
   'Красивая невеста в свадебном платье.',
   'Крупным планом глаза человека, отражающие солнечный свет.',
 ];
+const COMMENTS_PORTION = 5;
 
 const createComment = (obj) => ({
   id: generateCommentId(),
@@ -103,4 +104,5 @@ export {
   COMMENTS,
   NAMES,
   PHOTO_DESCRIPTIONS,
+  COMMENTS_PORTION,
 };
