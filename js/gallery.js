@@ -11,6 +11,7 @@ const renderGallery = (pictures) => {
       return;
     }
 
+    evt.preventDefault();
     const picture = pictures.find(
       (item) => item.id === Number(thumbnail.dataset.thumbnailId)
     );
