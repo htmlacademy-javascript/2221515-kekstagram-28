@@ -1,5 +1,7 @@
-import { renderGallery } from './gallery.js';
 import './form.js';
+import './scale.js';
+import './effect.js';
+import { renderGallery } from './gallery.js';
 import { AVATAR_NUMBER_MAX, AVATAR_NUMBER_MIN, COMMENTS, LIKES_AMOUNT_MAX, LIKES_AMOUNT_MIN, NAMES, getPhotos, PHOTOS_AMOUNT, PHOTO_DESCRIPTIONS } from './data.js';
 
 const photos = getPhotos({
