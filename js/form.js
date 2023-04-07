@@ -1,10 +1,10 @@
-import { resetEffects } from './effect.js';
-import { resetScale } from './scale.js';
-
-
-const MAX_HASHTAG_COUNT = 5;
-const VALID_SYMBOLS = /^#[a-zа-я0-9]{1,19}$/i;
-const TAG_ERROR_TEXT = 'Хештеги введёны неверно.';
+import { resetEffects } from './slider/slider-set-default.js';
+import { resetScale } from './scale/reset-scale.js';
+import {
+  MAX_HASHTAG_COUNT,
+  VALID_SYMBOLS,
+  TAG_ERROR_TEXT
+} from './constants.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
@@ -80,7 +80,7 @@ pristine.addValidator(
 const onFormSubmit = (evt) => {
   evt.preventDefault();
   pristine.validate();
-  if(validateTags(hashtagField.value)) {
+  if (validateTags(hashtagField.value)) {
     uploadFileField.submit();
   } else {
     evt.preventDefault();
