@@ -3,7 +3,8 @@ import { resetScale } from './scale/reset-scale.js';
 import {
   MAX_HASHTAG_COUNT,
   VALID_SYMBOLS,
-  TAG_ERROR_TEXT
+  TAG_ERROR_TEXT,
+  SubmitButtonText
 } from './constants.js';
 
 const body = document.querySelector('body');
@@ -13,6 +14,7 @@ const hashtagField = document.querySelector('.text__hashtags');
 const descriptionField = document.querySelector('.text__description');
 const uploadFileField = document.querySelector('.img-upload__input');
 const cancelButton = document.querySelector('.img-upload__cancel');
+const submitButton = document.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -77,16 +79,30 @@ pristine.addValidator(
   TAG_ERROR_TEXT
 );
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-  if (validateTags(hashtagField.value)) {
-    uploadFileField.submit();
-  } else {
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+const setOnFormSubmit = (callBack) => {
+  form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
-  }
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      await callBack(new FormData(form));
+      unblockSubmitButton();
+    }
+  });
 };
 
 uploadFileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
-form.addEventListener('submit', onFormSubmit);
+
+export { hideModal, setOnFormSubmit };

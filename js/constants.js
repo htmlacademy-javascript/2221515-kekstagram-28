@@ -56,6 +56,24 @@ const EFFECT_DEFAULT = EFFECTS[0];
 const MAX_HASHTAG_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-я0-9]{1,19}$/i;
 const TAG_ERROR_TEXT = 'Хештеги введёны неверно.';
+const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
+const Route = {
+  GET_DATA: '/data',
+  SEND_DATA: '/',
+};
+const Method = {
+  GET: 'GET',
+  POST: 'POST',
+};
+const ErrorText = {
+  GET_DATA: 'Не удалось загрузить данные. Обновите страницу.',
+  SEND_DATA: 'Не удалось отправить форму. Попробуйте еще раз.',
+};
+const ALERT_SHOW_TIME = 5000;
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
 
 export {
   SCALE_STEP,
@@ -66,5 +84,11 @@ export {
   EFFECT_DEFAULT,
   MAX_HASHTAG_COUNT,
   VALID_SYMBOLS,
-  TAG_ERROR_TEXT
+  TAG_ERROR_TEXT,
+  BASE_URL,
+  Route,
+  Method,
+  ErrorText,
+  ALERT_SHOW_TIME,
+  SubmitButtonText,
 };
