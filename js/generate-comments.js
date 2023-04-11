@@ -1,8 +1,10 @@
-import { createNumberGeneratorPlusFive } from './util.js';
+import { createNumberGeneratorPlusFive } from './utils/util.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const commentsContainer = bigPicture.querySelector('.social__comments');
 const commentCount = document.querySelector('.social__comment-count');
+const commentsCountContainer = document.querySelector('.comments-count');
+const commentsShownContainer = document.querySelector('.comments-shown');
 const commentsLoader = document.querySelector('.comments-loader');
 
 const createComment = ({ avatar, name, message }) => {
@@ -46,8 +48,10 @@ const renderComments = (comments = []) => {
   const commentsRefrash = () => {
     commentsContainer.innerHTML = '';
     commentsContainer.append(fragment);
-    commentCount.innerHTML = `${commentsShown} из <span class ="comments-count">${comments.length}</span> комментариев`;
+    commentsShownContainer.textContent = commentsShown;
+    commentsCountContainer.textContent = comments.length;
   };
+
   commentsRefrash();
 
   const onLoaderClick = () => {

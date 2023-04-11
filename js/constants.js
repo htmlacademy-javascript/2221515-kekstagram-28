@@ -74,6 +74,8 @@ const SubmitButtonText = {
   IDLE: 'Сохранить',
   SENDING: 'Сохраняю...'
 };
+const RENDER_PHOTOS_DELAY = 500;
+const NUMBER_OF_PHOTOS = 10;
 
 export {
   SCALE_STEP,
@@ -91,4 +93,6 @@ export {
   ErrorText,
   ALERT_SHOW_TIME,
   SubmitButtonText,
+  RENDER_PHOTOS_DELAY,
+  NUMBER_OF_PHOTOS,
 };

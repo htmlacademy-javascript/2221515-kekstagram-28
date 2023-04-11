@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeKey } from './utils/util.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const body = document.querySelector('body');
