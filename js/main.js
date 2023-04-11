@@ -2,17 +2,25 @@ import './form.js';
 import './scale/scale.js';
 import './slider/effect.js';
 import { renderGallery } from './gallery.js';
-import { AVATAR_NUMBER_MAX, AVATAR_NUMBER_MIN, COMMENTS, LIKES_AMOUNT_MAX, LIKES_AMOUNT_MIN, NAMES, getPhotos, PHOTOS_AMOUNT, PHOTO_DESCRIPTIONS } from './data.js';
+import { getData, sendData } from './api.js';
+import { showAlert } from './util.js';
+import { showSuccessMessage } from './message/success-message.js';
+import { showErrorMessage } from './message/error-message.js';
+import { hideModal, setOnFormSubmit } from './form.js';
 
-const photos = getPhotos({
-  photoDescriptions: PHOTO_DESCRIPTIONS,
-  likesAmountMin: LIKES_AMOUNT_MIN,
-  likesAmountMax: LIKES_AMOUNT_MAX,
-  avatarNumberMin: AVATAR_NUMBER_MIN,
-  avatarNumberMax: AVATAR_NUMBER_MAX,
-  comments: COMMENTS,
-  names: NAMES,
-  photosAmount: PHOTOS_AMOUNT,
+setOnFormSubmit(async (data) => {
+  try {
+    await sendData(data);
+    hideModal();
+    showSuccessMessage();
+  } catch {
+    showErrorMessage();
+  }
 });
 
-renderGallery(photos);
+try {
+  const data = await getData();
+  renderGallery(data);
+} catch (err) {
+  showAlert(err.message);
+}

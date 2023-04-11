@@ -43,7 +43,7 @@ const renderComments = (comments = []) => {
   };
   assemblyFragment();
 
-  const commentsRefrash = function () {
+  const commentsRefrash = () => {
     commentsContainer.innerHTML = '';
     commentsContainer.append(fragment);
     commentCount.innerHTML = `${commentsShown} из <span class ="comments-count">${comments.length}</span> комментариев`;

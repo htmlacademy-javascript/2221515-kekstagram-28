@@ -1,22 +1,3 @@
-const getRandomInteger = (minValue, maxValue) => {
-  const lower = Math.ceil(Math.min(minValue, maxValue));
-  const upper = Math.floor(Math.max(minValue, maxValue));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-const getRandomElementFromArray = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
-const createIdGenerator = () => {
-  let lastGeneratedId = 0;
-
-  return () => {
-    lastGeneratedId += 1;
-
-    return lastGeneratedId;
-  };
-};
-
 const createNumberGeneratorPlusFive = () => {
   let commentsShown = 0;
 
@@ -29,5 +10,22 @@ const createNumberGeneratorPlusFive = () => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+import { ALERT_SHOW_TIME } from './constants.js';
 
-export { getRandomInteger, getRandomElementFromArray, createIdGenerator, isEscapeKey, createNumberGeneratorPlusFive };
+const showAlert = (message) => {
+  const alert = document.createElement('div');
+  alert.style.position = 'absolute';
+  alert.style.left = '0';
+  alert.style.right = '0';
+  alert.style.top = '20%';
+  alert.style.fontSize = '20px';
+  alert.style.textAlign = 'center';
+  alert.style.textContent = message;
+  document.body.append(alert);
+
+  setTimeout(() => {
+    alert.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export { showAlert, isEscapeKey, createNumberGeneratorPlusFive };
