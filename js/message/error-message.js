@@ -1,4 +1,5 @@
 import { isEscapeKey } from '../utils/util.js';
+import { onFocusedFieldKeydown } from '../form.js';
 
 const body = document.querySelector('body');
 const errorTemplateFragment = document.querySelector('#error').content.querySelector('.error');
@@ -14,6 +15,9 @@ function showErrorMessage() {
   }
 
   errorButton.addEventListener('click', closeErrorMessage);
+
+  document.removeEventListener('keydown', onFocusedFieldKeydown);
+
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
