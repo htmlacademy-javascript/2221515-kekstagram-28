@@ -76,6 +76,8 @@ const SubmitButtonText = {
 };
 const RENDER_PHOTOS_DELAY = 500;
 const NUMBER_OF_PHOTOS = 10;
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 
 export {
   SCALE_STEP,
@@ -95,4 +97,5 @@ export {
   SubmitButtonText,
   RENDER_PHOTOS_DELAY,
   NUMBER_OF_PHOTOS,
+  FILE_TYPES,
 };

@@ -1,6 +1,7 @@
 import './form.js';
 import './scale/scale.js';
 import './slider/effect.js';
+import './upload-new-photo.js';
 import { renderGallery } from './gallery.js';
 import { getData, sendData } from './api.js';
 import { showAlert } from './utils/show-alert.js';
