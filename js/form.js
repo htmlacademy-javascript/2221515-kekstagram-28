@@ -1,5 +1,6 @@
 import { resetEffects } from './slider/slider-set-default.js';
 import { resetScale } from './scale/reset-scale.js';
+import { isEscapeKey } from './utils/util.js';
 import {
   MAX_HASHTAG_COUNT,
   VALID_SYMBOLS,
@@ -43,7 +44,7 @@ const isFieldFocused = () =>
   document.activeElement === descriptionField;
 
 function onFocusedFieldKeydown(evt) {
-  if (evt.key === 'Escape' && !isFieldFocused()) {
+  if (isEscapeKey(evt) && !isFieldFocused()) {
     evt.preventDefault();
     hideModal();
   }
@@ -105,4 +106,4 @@ const setOnFormSubmit = (callBack) => {
 uploadFileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
 
-export { hideModal, setOnFormSubmit };
+export { hideModal, setOnFormSubmit, onFocusedFieldKeydown };
