@@ -1,16 +1,4 @@
-const createNumberGeneratorPlusFive = () => {
-  let commentsShown = 0;
-
-  return () => {
-    commentsShown += 5;
-
-    return commentsShown;
-  };
-};
-
-const isEscapeKey = (evt) => evt.key === 'Escape';
-
-import { ALERT_SHOW_TIME } from './constants.js';
+import { ALERT_SHOW_TIME } from '../constants.js';
 
 const showAlert = (message) => {
   const alert = document.createElement('div');
@@ -28,4 +16,4 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export { showAlert, isEscapeKey, createNumberGeneratorPlusFive };
+export{ showAlert };
