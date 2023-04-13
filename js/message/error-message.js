@@ -9,25 +9,25 @@ function showErrorMessage() {
   body.appendChild(errorMessage);
   const errorButton = document.querySelector('.error__button');
 
-  function closeErrorMessage() {
+  function onClosedErrorMessage() {
     const onErrorMessageClose = document.querySelector('.error');
     onErrorMessageClose.remove();
   }
 
-  errorButton.addEventListener('click', closeErrorMessage);
+  errorButton.addEventListener('click', onClosedErrorMessage);
 
   document.removeEventListener('keydown', onFocusedFieldKeydown);
 
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
-      closeErrorMessage();
+      onClosedErrorMessage();
     }
   });
 
   document.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('error')) {
-      closeErrorMessage();
+      onClosedErrorMessage();
     }
   });
 }
