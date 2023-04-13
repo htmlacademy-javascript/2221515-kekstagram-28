@@ -9,7 +9,7 @@ const onEffectsChange = (evt) => {
 
     return;
   }
-  chosenEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
+  chosenEffect = EFFECTS[evt.target.value];
   imageElement.className = `effects__preview--${chosenEffect.name}`;
   updateSlider();
 };
