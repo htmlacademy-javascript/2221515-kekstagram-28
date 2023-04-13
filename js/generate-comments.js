@@ -55,17 +55,23 @@ const renderComments = (comments = []) => {
   commentsRefrash();
 
   const onLoaderClick = () => {
+    commentsLoader.classList.remove('hidden');
+    commentCount.classList.remove('hidden');
+
     commentsShown = increaseCommentsShown();
     if (commentsShown >= comments.length) {
       commentsShown = comments.length;
     }
+
     assemblyFragment();
+
     if (commentsShown >= comments.length) {
       commentsShown = comments.length;
       commentsLoader.classList.add('hidden');
       commentCount.classList.add('hidden');
       commentsLoader.removeEventListener('click', onLoaderClick);
     }
+
     commentsRefrash();
   };
   commentsLoader.addEventListener('click', onLoaderClick);
